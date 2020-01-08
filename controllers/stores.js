@@ -17,3 +17,16 @@ exports.getStores = async (req, res, next) => {
         res.status(500).json({errro: 'server error'})
     }
 };
+
+// @desc Create a store
+// @route POST /api/v1/stores
+// @access Public
+exports.addStore = async (req, res, next) => {
+    try {
+        console.log(req.body);
+        res.send("ok")
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({errro: 'server error'})
+    }
+};
