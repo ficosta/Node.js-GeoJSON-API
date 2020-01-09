@@ -9,7 +9,7 @@ exports.getStores = async (req, res, next) => {
 
         return res.status(200).json({
             sucess: true,
-            count: stores.lenght || 0,
+            count: stores.length,
             data: stores
         })
     } catch (err) {
@@ -23,9 +23,18 @@ exports.getStores = async (req, res, next) => {
 // @access Public
 exports.addStore = async (req, res, next) => {
     try {
+        const store = await Store.create(req.body)
         console.log(req.body);
-        res.send("ok")
+        return res.status(201).json({
+            sucess: true,
+            data: store
+        })
     } catch (err) {
+        if(err.code == 11000){
+            res.status(400).json({
+                error: "Essa loja já existe"
+            })
+        }
         console.error(err)
         res.status(500).json({errro: 'server error'})
     }
